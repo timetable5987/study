@@ -1,0 +1,39 @@
+/*
+https://school.programmers.co.kr/learn/courses/30/lessons/17680
+
+LRU 알고리즘 구현
+*/
+
+import java.util.*;
+
+class Solution {
+    public int solution(int cacheSize, String[] cities) {
+        int answer = 0;
+        
+        ArrayList<String> list = new ArrayList<>();
+        int sum = 0;
+        
+        if(cacheSize == 0){
+            return cities.length * 5;
+        }
+        
+        for(String s : cities){
+            if(list.size() < cacheSize && !list.contains(s.toLowerCase())){
+                list.add(s.toLowerCase());
+                sum += 5;
+            }else if (list.size() <= cacheSize && list.contains(s.toLowerCase())){
+                list.remove(list.indexOf(s.toLowerCase()));
+                list.add(s.toLowerCase());
+                sum++;                
+            }else{
+                list.remove(0);
+                list.add(s.toLowerCase());
+                sum+=5;
+            }
+            
+       //     System.out.println(s.toLowerCase() +" , " + sum);
+        }
+        
+        return sum;
+    }
+}
